@@ -2,3 +2,4 @@ __pycache__
 img/*.png
 data/*.dat
 results.txt
+scripts/__pycache__
