@@ -8,7 +8,7 @@ include config.mk
 .PHONY : all # .PHONY for a target that is not a file
 all: results.txt pngs
 
-data/%.dat: countwords.py books/%.txt
+data/%.dat: $(COUNTER) books/%.txt
 	$(INTERPRETER) $^ $@
 
 # generate the plots
@@ -16,19 +16,19 @@ data/%.dat: countwords.py books/%.txt
 .PHONY : pngs
 pngs: $(IMG_FILES)
 
-img/%.png: plotcounts.py data/%.dat
+img/%.png: $(PLOTTER) data/%.dat
 	$(INTERPRETER) $^ $@
 
 # combine the results
 ## results.txt : Generate Zipf summary table.
-results.txt: testzipf.py $(DATA_FILES)
+results.txt: $(TESTER) $(DATA_FILES)
 	$(INTERPRETER) $^ > $@
 
 # Clean
 ## clean       : Remove auto-generated files.
 .PHONY : clean
 clean:
-	rm -f data/*.dat img/*.png results.txt
+	rm -f $(DATA_FILES) $(IMG_FILES) results.txt
 
 # Make prints actions as it executes them.
 # Using @ at the start of an action tells Make not to print this action.
