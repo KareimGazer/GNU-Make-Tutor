@@ -1,29 +1,30 @@
 # the key parts of a Makefile, rules, targets, dependencies and actions
 
+# vars
+INTERPRETER = python3
+DATA_FILES = data/isles.dat data/abyss.dat data/last.dat
+IMG_FILES = img/isles.png img/abyss.png img/last.png
+
 # Count words.
 
-.PHONY : all
+.PHONY : all # .PHONY for a target that is not a file
 all: results.txt pngs
 
-# generate the data files
-## dats        : Count words in text files.
-.PHONY : dats
-dats: data/isles.dat data/abyss.dat data/last.dat
-
-data/%.dat: countwords.py books/%.txt 
-	python3 $^ $@
+data/%.dat: countwords.py books/%.txt
+	$(INTERPRETER) $^ $@
 
 # generate the plots
+## pngs        : Plot word counts.
 .PHONY : pngs
-pngs: img/isles.png img/abyss.png img/last.png
+pngs: $(IMG_FILES)
 
 img/%.png: plotcounts.py data/%.dat
-	python3 $^ $@
+	$(INTERPRETER) $^ $@
 
 # combine the results
 ## results.txt : Generate Zipf summary table.
-results.txt: testzipf.py data/abyss.dat data/isles.dat data/last.dat
-	python3 $^ > $@
+results.txt: testzipf.py $(DATA_FILES)
+	$(INTERPRETER) $^ > $@
 
 # Clean
 ## clean       : Remove auto-generated files.
