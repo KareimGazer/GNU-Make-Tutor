@@ -1,4 +1,5 @@
 # vars
 INTERPRETER = python3
-DATA_FILES = data/isles.dat data/abyss.dat data/last.dat
-IMG_FILES = img/isles.png img/abyss.png img/last.png
+TEXT_FILES = $(wildcard books/*.txt)
+DATA_FILES = $(patsubst books/%.txt, data/%.dat, $(TEXT_FILES))
+IMG_FILES = $(patsubst books/%.txt, img/%.png, $(TEXT_FILES))
