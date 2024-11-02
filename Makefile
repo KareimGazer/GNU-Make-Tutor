@@ -10,27 +10,27 @@ all: results pngs
 .PHONY : dats
 dats: isles.dat abyss.dat last.dat
 
-isles.dat: books/isles.txt countwords.py
-	python3 countwords.py $< $@
+isles.dat: countwords.py books/isles.txt 
+	python3 $^ $@
 
-abyss.dat : books/abyss.txt countwords.py
-	python3 countwords.py $< $@
+abyss.dat : countwords.py books/abyss.txt 
+	python3 $^ $@
 
-last.dat: books/last.txt countwords.py
-	python3 countwords.py $< $@
+last.dat: countwords.py books/last.txt 
+	python3 $^ $@
 
 # generate the plots
 .PHONY : pngs
 pngs: isles.png abyss.png last.png
 
-isles.png: isles.dat
-	python3 plotcounts.py isles.dat isles.png
+isles.png: plotcounts.py isles.dat
+	python3 $^ $@
 
-abyss.png : abyss.dat
-	python3 plotcounts.py abyss.dat abyss.png
+abyss.png : plotcounts.py abyss.dat
+	python3 $^ $@
 
-last.png : last.dat
-	python3 plotcounts.py last.dat last.png
+last.png : plotcounts.py last.dat
+	python3 $^ $@
 
 # combine the results
 ## results.txt : Generate Zipf summary table.
