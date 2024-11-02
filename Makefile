@@ -4,6 +4,7 @@ include config.mk
 
 # Count words.
 
+# By default, make runs the first target it finds in the Makefile, in this case your new all target.
 .PHONY : all # .PHONY for a target that is not a file
 all: results.txt pngs
 
